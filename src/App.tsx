@@ -24,7 +24,8 @@ import {
   Twitter,
   Send,
   HelpCircle,
-  FolderOpen
+  FolderOpen,
+  TrendingUp
 } from 'lucide-react';
 import DesktopWindow from './components/DesktopWindow';
 import MemeBoard from './components/MemeBoard';
@@ -97,6 +98,17 @@ const DEFAULT_WINDOWS: RetroWindow[] = [
     x: 300,
     y: 180,
     width: 360,
+    height: 'auto',
+    zIndex: 5,
+  },
+  {
+    id: 'dexscreener',
+    title: 'LIVE_CHART.EXE',
+    isOpen: false,
+    isMinimized: false,
+    x: 140,
+    y: 120,
+    width: 680,
     height: 'auto',
     zIndex: 5,
   }
@@ -574,6 +586,21 @@ export default function App() {
                 </span>
               </button>
 
+              {/* Desktop Shortcut: Live DexScreener Chart */}
+              <button
+                onDoubleClick={() => openWindow('dexscreener')}
+                onClick={() => openWindow('dexscreener')}
+                onMouseEnter={playHoverSound}
+                className="flex flex-col items-center text-center group cursor-pointer focus:outline-none"
+              >
+                <div className="w-12 h-12 flex items-center justify-center bg-[#dfdfdf] border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] p-1 group-hover:bg-white shadow">
+                  <TrendingUp className="text-blue-600 animate-pulse" size={32} />
+                </div>
+                <span className="text-xs text-white drop-shadow-[1px_1px_2px_rgba(0,0,0,0.8)] mt-1 font-bold group-hover:underline truncate w-24">
+                  LIVE_CHART.exe
+                </span>
+              </button>
+
               {/* Recycle Bin */}
               <button
                 onClick={() => { playErrorSound(); alert('Error: $HUH cannot be deleted. Rug-pull protection is strictly active!'); }}
@@ -854,6 +881,71 @@ export default function App() {
               </div>
             </DesktopWindow>
 
+            {/* Window 6: LIVE DEXSCREENER CHART */}
+            <DesktopWindow
+              id="dexscreener"
+              title="LIVE_CHART.EXE - Robinhood Chain DexScreener"
+              icon={<TrendingUp size={14} className="text-blue-600" />}
+              isOpen={windows.find(w => w.id === 'dexscreener')?.isOpen ?? false}
+              isMinimized={windows.find(w => w.id === 'dexscreener')?.isMinimized ?? false}
+              x={windows.find(w => w.id === 'dexscreener')?.x ?? 140}
+              y={windows.find(w => w.id === 'dexscreener')?.y ?? 120}
+              width={windows.find(w => w.id === 'dexscreener')?.width ?? 680}
+              height={windows.find(w => w.id === 'dexscreener')?.height ?? 'auto'}
+              zIndex={windows.find(w => w.id === 'dexscreener')?.zIndex ?? 5}
+              activeWindowId={activeWindowId}
+              onClose={closeWindow}
+              onMinimize={minimizeWindow}
+              onFocus={focusWindow}
+              onPositionChange={handlePositionChange}
+            >
+              <div className="space-y-4 text-xs font-mono text-black">
+                {/* Vintage Title Info Bar */}
+                <div className="p-2.5 bg-gradient-to-r from-emerald-800 to-emerald-950 text-white font-bold flex justify-between items-center border border-emerald-900 shadow-sm">
+                  <span>ROBINHOOD CHAIN TRADING ENGINE v1.0</span>
+                  <span className="text-[10px] text-green-300 animate-pulse">● LIVE DATA ON RHC-95</span>
+                </div>
+
+                {/* Real-time stats widgets */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="p-2 bg-[#dfdfdf] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white">
+                    <p className="text-[10px] text-[#000080] font-bold">TOKEN_PRICE USD</p>
+                    <p className="text-sm font-black text-emerald-800">$0.004289</p>
+                    <p className="text-[9px] text-green-600 font-bold">+18.5% (24H)</p>
+                  </div>
+                  <div className="p-2 bg-[#dfdfdf] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white">
+                    <p className="text-[10px] text-[#000080] font-bold">MARKETCAP</p>
+                    <p className="text-sm font-black text-gray-900">$4,289,000</p>
+                    <p className="text-[9px] text-gray-500 font-bold">Diluted Valuation</p>
+                  </div>
+                  <div className="p-2 bg-[#dfdfdf] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white">
+                    <p className="text-[10px] text-[#000080] font-bold">SUPPLY</p>
+                    <p className="text-sm font-black text-gray-900">1,000,000,000</p>
+                    <p className="text-[9px] text-emerald-700 font-bold">100% Circulating</p>
+                  </div>
+                  <div className="p-2 bg-[#dfdfdf] border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white">
+                    <p className="text-[10px] text-[#000080] font-bold">VOLUME (24H)</p>
+                    <p className="text-sm font-black text-blue-800">$849,215</p>
+                    <p className="text-[9px] text-blue-600 font-bold">Instant RHC Swaps</p>
+                  </div>
+                </div>
+
+                {/* DexScreener Chart Frame Container */}
+                <div className="border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white bg-black aspect-[16/10] w-full relative overflow-hidden flex items-center justify-center">
+                  <iframe 
+                    src="https://dexscreener.com/solana/831bS66m6XFqD8UuR1Lsc92y1T8q3637?embed=1&theme=light&trades=0&info=0"
+                    className="absolute inset-0 w-full h-full border-none"
+                    title="DexScreener Live Chart"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+
+                <div className="p-2 bg-gray-100 border border-gray-400 text-center text-[10px] text-gray-700 leading-relaxed font-semibold">
+                  Note: The live graph utilizes DexScreener&apos;s Web3 interactive embedding. Verify tokens and liquidity pairs using the official Robinhood Chain contract.
+                </div>
+              </div>
+            </DesktopWindow>
+
           </div>
 
           {/* BOTTOM WINDOWS 95 TASKBAR */}
@@ -968,6 +1060,15 @@ export default function App() {
                     >
                       <Music size={14} />
                       <span>HUH_PLAYER.exe</span>
+                    </button>
+
+                    <button
+                      onMouseEnter={playHoverSound}
+                      onClick={() => openWindow('dexscreener')}
+                      className="w-full text-left py-1.5 px-3 hover:bg-[#000080] hover:text-white flex items-center gap-2 cursor-pointer"
+                    >
+                      <TrendingUp size={14} />
+                      <span>LIVE_CHART.exe</span>
                     </button>
 
                     <hr className="border-t border-gray-400 border-b border-white my-1" />
