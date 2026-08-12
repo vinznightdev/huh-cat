@@ -1,0 +1,11 @@
+# Netlify Configuration File
+# Configures the build command, output directory, and routing redirect rules for Vite SPA.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

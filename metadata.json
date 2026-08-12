@@ -1,0 +1,6 @@
+{
+  "name": "HUH CAT Token",
+  "description": "The ultimate retro 1990s meme token website for HUH CAT featuring interactive retro windows, spooky peeking cats, and synthetic hover sound effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
