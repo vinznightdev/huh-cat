@@ -56,7 +56,7 @@ export default function TerminalBuy() {
           { text: 'STEP 2: Switch network to the high-speed ROBINHOOD CHAIN (RHC).', type: 'output' },
           { text: 'STEP 3: Load funds (such as Robinhood-bridged ETH, SOL, or USDC).', type: 'output' },
           { text: 'STEP 4: Search for $HUH or paste the official RHC Contract Address:', type: 'output' },
-          { text: '        [ RHC_HUH7xPxV9ret8R95Y90sMemeCatRobinhoodChain ]', type: 'success' },
+          { text: '        [ 0x04Cde7AE44a37ebaB18c054E6FE5127C4A1eE4E8 ]', type: 'success' },
           { text: 'STEP 5: Swap instantly with zero fees! Welcome to the Robinhood HUH Crew!', type: 'success' }
         );
         break;

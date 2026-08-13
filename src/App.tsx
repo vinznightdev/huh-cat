@@ -933,7 +933,7 @@ export default function App() {
                 {/* DexScreener Chart Frame Container */}
                 <div className="border-2 border-t-[#808080] border-l-[#808080] border-b-white border-r-white bg-black aspect-[16/10] w-full relative overflow-hidden flex items-center justify-center">
                   <iframe 
-                    src="https://dexscreener.com/solana/831bS66m6XFqD8UuR1Lsc92y1T8q3637?embed=1&theme=light&trades=0&info=0"
+                    src="https://dexscreener.com/ethereum/0x04Cde7AE44a37ebaB18c054E6FE5127C4A1eE4E8?embed=1&theme=light&trades=0&info=0"
                     className="absolute inset-0 w-full h-full border-none"
                     title="DexScreener Live Chart"
                     referrerPolicy="no-referrer"
